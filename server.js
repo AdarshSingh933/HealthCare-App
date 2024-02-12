@@ -23,9 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1/user',require('./routes/userRoutes'));
 
 // Static file
-app.use(express.static(path.join(__dirname,'./client/build')));
+app.use(express.static(path.join(__dirname,'./client/src')));
 app.get('*',function(req,res){
-    res.sendFile(path.join(__dirname,'./client/build/index.html'));
+    res.sendFile(path.join(__dirname,'./client/public/index.html'));
 })
 
 //port
