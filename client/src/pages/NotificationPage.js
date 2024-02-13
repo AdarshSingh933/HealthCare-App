@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {setUser} from "../redux/features/userSlice";
 
 const NotificationPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const NotificationPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+        dispatch(setUser(res.data.data));
       } else {
         message.error(res.data.message);
       }
@@ -54,6 +56,7 @@ const NotificationPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+        dispatch(setUser(res.data.data));
       } else {
         message.error(res.data.message);
       }

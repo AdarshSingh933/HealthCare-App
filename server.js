@@ -1,41 +1,36 @@
 const express = require("express");
-const dotenv = require('dotenv');
+const colors = require("colors");
+const moragan = require("morgan");
+const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const cors = require('cors');
-const path = require('path');
 
-
-//dotenv config
+//dotenv conig
 dotenv.config();
 
 //mongodb connection
 connectDB();
 
-//rest object
+//rest obejct
 const app = express();
 
 //middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended:true}));
+
 
 //routes
-app.use('/api/v1/user',require('./routes/userRoutes'));
-
-// Static file
-app.use(express.static(path.join(__dirname,'./client/build')));
-app.get('*',function(req,res){
-    res.sendFile(path.join(__dirname,'./client/build/index.html'));
-})
+app.use("/api/v1/user", require("./routes/userRoutes"));
+app.use("/api/v1/admin", require("./routes/adminRoutes"));
+app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
 
 //port
 const port = process.env.PORT || 8080;
-
 //listen port
-app.listen(port, (err) => {
-    if (err) {
-        console.error("Error:", err);
-        return;
-    }
-    console.log("server is listening on port", port);
+app.listen(port, () => {
+  console.log(
+    `Server is running on port ${process.env.PORT}`
+      .bgCyan.white
+  );
 });
